@@ -65,8 +65,9 @@ export const CreateCivil = async (req, res) => {
 export const getCivilWorkers = async (req, res) => {
   try {
     const { cusId } = req.query;
-    const civilWorkers = await CivilWorker.find(cusId); 
-    return res.status(200).json({
+    const civilWorkers = await CivilWorker.find({
+      _id: cusId,
+    });    return res.status(200).json({
       success: true,
       data: civilWorkers,
     });
