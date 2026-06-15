@@ -44,7 +44,6 @@ router.post("/verify-otp", async (req, res) => {
       message: "Invalid or expired OTP"
     });
   }
-
   res.json({
     success: true,
     message: "OTP verified successfully",

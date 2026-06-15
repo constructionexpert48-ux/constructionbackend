@@ -1,16 +1,87 @@
-module.exports = (sequelize, DataTypes) => {
-    const ElectronicsWorker = sequelize.define("ElectronicsWorker", {
-      userId: { type: DataTypes.STRING, allowNull: false },
-      category: { type: DataTypes.STRING, allowNull: false }, // electrician, technician
-      fullName: { type: DataTypes.STRING, allowNull: false },
-      dob: { type: DataTypes.DATEONLY },
-      addressLine: { type: DataTypes.STRING },
-      city: { type: DataTypes.STRING },
-      pincode: { type: DataTypes.STRING },
-      gstNumber: { type: DataTypes.STRING },
-      aadhaarNumber: { type: DataTypes.STRING },
-      panNumber: { type: DataTypes.STRING }
-    });
-    return ElectronicsWorker;
-  };
-  
+import mongoose from "mongoose";
+
+const electronicsSchema = new mongoose.Schema(
+  {
+    category: {
+      type: String,
+      required: true,
+      trim: true,
+    },
+
+    fullName: {
+      type: String,
+      required: true,
+      trim: true,
+    },
+
+    dob: {
+      type: Date,
+      required: true,
+    },
+
+    addressLine: {
+      type: String,
+      required: true,
+      trim: true,
+    },
+
+    areaPincode: {
+      type: String,
+      required: true,
+      trim: true,
+    },
+
+    city: {
+      type: String,
+      required: true,
+      trim: true,
+    },
+
+    gstNumber: {
+      type: String,
+      trim: true,
+    },
+
+    aadhaarNumber: {
+      type: String,
+      required: true,
+      trim: true,
+    },
+
+    panNumber: {
+      type: String,
+      required: true,
+      trim: true,
+    },
+
+    selfPhoto: {
+      type : String, // base64
+    },
+
+    aadhaarFront: {
+      type : String,
+    },
+
+    aadhaarBack: {
+      type: String,
+    },
+
+    panCardImage: {
+      type: String,
+    },
+
+    status: {
+      type: String,
+      enum: ["PENDING", "APPROVED", "REJECTED"],
+      default: "PENDING",
+    },
+  },
+  { timestamps: true }
+);
+
+const ElectronicsWarker = mongoose.model(
+  "ElectronicsWorker",
+   electronicsSchema
+);
+
+export default ElectronicsWarker;

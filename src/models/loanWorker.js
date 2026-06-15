@@ -1,16 +1,41 @@
-module.exports = (sequelize, DataTypes) => {
-    const LoanWorker = sequelize.define("LoanWorker", {
-      userId: { type: DataTypes.STRING, allowNull: false },
-      category: { type: DataTypes.STRING, allowNull: false }, // loan-agent, advisor
-      fullName: { type: DataTypes.STRING, allowNull: false },
-      dob: { type: DataTypes.DATEONLY },
-      addressLine: { type: DataTypes.STRING },
-      city: { type: DataTypes.STRING },
-      pincode: { type: DataTypes.STRING },
-      gstNumber: { type: DataTypes.STRING },
-      aadhaarNumber: { type: DataTypes.STRING },
-      panNumber: { type: DataTypes.STRING }
-    });
-    return LoanWorker;
-  };
+import mongoose from "mongoose";
+
+const loanSchema = new mongoose.Schema(
+  {
+   
+    fullName: {
+      type: String,
+      required: true,
+      trim: true,
+    },
+
+    panNumber: {
+      type: String,
+      required: true,
+      trim: true,
+    },
+      MobileNumber: {
+        type: String,
+        required: true,
+        trim: true,
+      },
+      Amount: {
+        type: String,
+        required: true,
+        trim: true,
+      },
+  status: {
+    type: String,
+    enum: ["PENDING", "APPROVED", "REJECTED"],
+    default: "PENDING",
+  },
+    },
+  { timestamps: true }
+  );
+
+  const LoanNeed = mongoose.model(
+    "LoanNeed",
+     loanSchema
+  );
   
+export default LoanNeed;

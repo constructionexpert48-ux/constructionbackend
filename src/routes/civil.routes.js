@@ -1,8 +1,11 @@
-const express = require("express");
+const express = require('express');
 const router = express.Router();
-const controller = require("../controllers/civil.controller");
+const upload = require('../middleware/upload.js');
+const auth = require('../middleware/auth.js');
 
-router.post('/', controller.addCivilWorker);
-router.get('/', controller.getCivilWorkers);
+const { CreateCivil , getCivilWorkers } = require('../controllers/civil.controller.js');
 
-module.exports = router;
+router.post('/create', upload , CreateCivil);
+router.get('/', auth, getCivilWorkers);
+
+module.exports = router; 

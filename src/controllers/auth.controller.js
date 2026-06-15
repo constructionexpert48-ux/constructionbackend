@@ -7,11 +7,10 @@ const client = twilio(
   process.env.TWILIO_SID,
   process.env.TWILIO_AUTH_TOKEN
 );
-
 // SEND OTP
 exports.sendOtp = async (phone) => {
   const otp = generateOtp(6);
-  await saveOtp(phone, otp, 300);
+   await saveOtp(phone, otp, 300);
 
   await client.messages.create({
     body: `Your OTP is ${otp}`,

@@ -1,8 +1,11 @@
 const express = require("express");
 const router = express.Router();
-const controller = require("../controllers/labour.controller");
+const auth = require('../middleware/auth.js');
+const upload = require('../middleware/upload.js');
 
-router.post('/', controller.addLabourWorker);
-router.get('/', controller.getLabourWorkers);
+const {createLabour , getAllLabour} = require('../controllers/labour.controller.js');
+
+router.post('/create', upload , createLabour);
+router.get('/',  auth , getAllLabour);
 
 module.exports = router;

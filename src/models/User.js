@@ -10,7 +10,7 @@ const userSchema = new Schema(
     },
     role: {
       type: String,
-      enum: ['marchant', 'admin', 'customer'], // ✅ all allowed
+      enum: ['marchant','customer'], // ✅ all allowed
       default: 'marchant'
     },
     name: {

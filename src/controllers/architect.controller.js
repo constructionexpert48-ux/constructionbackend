@@ -1,8 +1,6 @@
 import ArchitectWorker from "../models/architectWorker.js";
 
 export const createArchitect = async (req, res) => {
-  const baseurl = `${req.protocol}://${req.get("host")}/`;
-
   try {
     const {
       category,
@@ -15,8 +13,6 @@ export const createArchitect = async (req, res) => {
       aadhaarNumber,
       panNumber
     } = req.body;
-
-    // 🔴 Basic Validation
     if (
       !category ||
       !fullName ||
@@ -45,11 +41,10 @@ export const createArchitect = async (req, res) => {
       gstNumber: gstNumber?.trim(),
       aadhaarNumber: aadhaarNumber.trim(),
       panNumber: panNumber.trim(),
-      
-      selfPhoto:  baseurl + req.files.selfPhoto[0].path.replace(/\\/g, "/"), // Handle Windows backslashes
-      aadhaarFront : baseurl + req.files.aadhaarFront[0].path.replace(/\\/g, "/"),
-      aadhaarBack : baseurl + req.files.aadhaarBack[0].path.replace(/\\/g, "/"),
-      panCardImage : baseurl + req.files.panCardImage[0].path.replace(/\\/g, "/"),
+      selfPhoto:  req.files.selfPhoto[0].path.replace(/\\/g, "/"), 
+      aadhaarFront : req.files.aadhaarFront[0].path.replace(/\\/g, "/"),
+      aadhaarBack :  req.files.aadhaarBack[0].path.replace(/\\/g, "/"),
+      panCardImage : req.files.panCardImage[0].path.replace(/\\/g, "/"),
     });
 
     await architectWorker.save();
@@ -62,6 +57,32 @@ export const createArchitect = async (req, res) => {
   } catch (error) {
     console.error("Create Architect Error:", error);
     return res.status(500).json({
+      success: false,
+      message: "Server Error",
+    });
+  }
+};
+
+export const getAllArchitects = async (req, res) => {
+  try {
+    const { cusId } = req.query;
+
+    const architect = await ArchitectWorker.findOne({ cusId });
+
+    if (!architect) {
+      return res.status(404).json({
+        success: false,
+        message: "Not found",
+      });
+    }
+
+    res.status(200).json({
+      success: true,
+      data: architect,
+    });
+
+  } catch (error) {
+    res.status(500).json({
       success: false,
       message: "Server Error",
     });

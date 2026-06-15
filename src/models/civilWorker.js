@@ -1,17 +1,87 @@
-module.exports = (sequelize, DataTypes) => {
-  const CivilWorker = sequelize.define("CivilWorker", {
-    userId: { type: DataTypes.STRING, allowNull: false },
+import mongoose from "mongoose";
 
-    category: { type: DataTypes.STRING, allowNull: false },      // selectedValue
-    fullName: { type: DataTypes.STRING, allowNull: false },      // TextInput
-    dob: { type: DataTypes.DATEONLY, allowNull: false },         // date state
-    address: { type: DataTypes.STRING, allowNull: false },       // Address input
-    gstNumber: { type: DataTypes.STRING, allowNull: true },      // OPTIONAL
-    selfPhoto: { type: DataTypes.TEXT('long'), allowNull: false },      // base64
-    adhaarFront: { type: DataTypes.TEXT('long'), allowNull: false },    // base64
-    adhaarBack: { type: DataTypes.TEXT('long'), allowNull: false },     // base64
-    panCard: { type: DataTypes.TEXT('long'), allowNull: false }         // base64
-  });
+const civilSchema = new mongoose.Schema(
+  {
+    category: {
+      type: String,
+      required: true,
+      trim: true,
+    },
 
-  return CivilWorker;
-};
+    fullName: {
+      type: String,
+      required: true,
+      trim: true,
+    },
+
+    dob: {
+      type: Date,
+      required: true,
+    },
+
+    addressLine: {
+      type: String,
+      required: true,
+      trim: true,
+    },
+
+    areaPincode: {
+      type: String,
+      required: true,
+      trim: true,
+    },
+
+    city: {
+      type: String,
+      required: true,
+      trim: true,
+    },
+
+    gstNumber: {
+      type: String,
+      trim: true,
+    },
+
+    aadhaarNumber: {
+      type: String,
+      required: true,
+      trim: true,
+    },
+
+    panNumber: {
+      type: String,
+      required: true,
+      trim: true,
+    },
+
+    selfPhoto: {
+      type : String, // base64
+    },
+
+    aadhaarFront: {
+      type : String,
+    },
+
+    aadhaarBack: {
+      type: String,
+    },
+
+    panCardImage: {
+      type: String,
+    },
+    
+    status: {
+      type: String,
+      enum: ["PENDING", "APPROVED", "REJECTED"],
+      default: "PENDING",
+    },
+  },
+  { timestamps: true }
+);
+
+const CivilWorker = mongoose.model(
+  "CivilWorker",
+  civilSchema
+);
+
+export default CivilWorker;

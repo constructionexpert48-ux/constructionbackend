@@ -1,17 +1,40 @@
-const loanWorker = require("../models/loanWorker");
-const { LoanWorker } = loanWorker;
-exports.addLoanWorker = async (req, res) => {
+import loanNeed from "../models/loanWorker.js";
+
+export const createloan = async (req, res) => {
   try {
-    const worker = await LoanWorker.create(req.body);
-    res.status(201).json({ success: true, worker });
+    const { fullName, MobileNumber, Amount, panNumber } = req.body;
+
+    if (!fullName || !MobileNumber || !Amount || !panNumber) {
+      return res.status(400).json({
+        success: false,
+        message: "All required fields must be filled"
+      });
+    }
+
+    const loanneed = new loanNeed({
+      fullName: fullName.trim(),
+      MobileNumber: MobileNumber.trim(),
+      Amount,
+      panNumber: panNumber.trim(),
+    });
+
+    await loanneed.save();
+
+    return res.status(201).json({
+      success: true,
+      message: "Loan Need registration submitted successfully",
+      data: loanneed
+    });
+
   } catch (error) {
     res.status(500).json({ success: false, error: error.message });
   }
 };
-exports.getLoanWorkers = async (_req, res) => {
+
+export const getallloanNeed = async (req, res) => {
   try {
-    const workers = await LoanWorker.findAll();
-    res.json({ success: true, workers });
+    const loanneed = await loanNeed.find(); // FIXED
+    res.json({ success: true, loanneed });
   } catch (error) {
     res.status(500).json({ success: false, error: error.message });
   }

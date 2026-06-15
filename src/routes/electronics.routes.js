@@ -1,8 +1,11 @@
-const express = require("express");
+const { createelectronics, getAllElectronics } = require('../controllers/electronics.controller.js');
+const auth = require('../middleware/auth.js');
+const express = require('express');
 const router = express.Router();
-const controller = require("../controllers/electronics.controller");
+const upload = require('../middleware/upload.js');
 
-router.post('/', controller.addElectronicsWorker);
-router.get('/', controller.getElectronicsWorkers);
+
+router.post('/create', upload , createelectronics);
+router.get('/', auth , getAllElectronics);
 
 module.exports = router;

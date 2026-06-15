@@ -1,115 +1,80 @@
-const { CivilWorker } = require("../models/civilWorker");
+import CivilWorker from "../models/CivilWorker.js";
 
-exports.addCivilWorker = async (req, res) => {
+export const CreateCivil = async (req, res) => {
   try {
     const {
-      userId,
       category,
       fullName,
       dob,
       addressLine,
       city,
-      pincode,
+      areaPincode,
       gstNumber,
       aadhaarNumber,
       panNumber,
-      selfie,
-      adhaarfrant,
-      adhaarback
     } = req.body;
     // ----------- Validation ----------
-    if (!userId)
-      return res.status(400).json({ success: false, message: "userId is required" });
+    if (
+   !category ||
+    !fullName ||
+    !dob ||
+    !addressLine ||
+    !city ||
+    !areaPincode ||
+    !aadhaarNumber ||
+    !panNumber ||
+    !req.files
+    ) {
+      return res.status(400).json({
+        success: false,
+        message: "All required fields must be filled",
+      });
+    }
 
-    if (!category)
-      return res.status(400).json({ success: false, message: "category is required" });
-
-    if (!fullName)
-      return res.status(400).json({ success: false, message: "fullName is required" });
-
-    if (!dob)
-      return res.status(400).json({ success: false, message: "dob is required (YYYY-MM-DD)" });
-
-    if (!addressLine)
-      return res.status(400).json({ success: false, message: "addressLine is required" });
-
-    if (!city)
-      return res.status(400).json({ success: false, message: "city is required" });
-
-    if (!pincode)
-      return res.status(400).json({ success: false, message: "pincode is required" });
-
-    if (!aadhaarNumber)
-      return res.status(400).json({ success: false, message: "aadhaarNumber is required" });
-
-    if (!panNumber)
-      return res.status(400).json({ success: false, message: "panNumber is required" });
-
-    if (!panimage)
-      return res.status(400).json({ success: false, message: "pan image is required" });
-
-    if (!adhaarfrant)
-      return res.status(400).json({ success: false, message: "adhaar frant image is required" });
-
-    if (!adhaarback)
-      return res.status(400).json({ success: false, message: "adhaar back image is required" });
-
-    if (!selfie)
-      return res.status(400).json({ success: false, message: "selfie image is required" });
-
-    // ----------- Save Worker -----------
-    const worker = await CivilWorker.create({
-      userId,
-      category,
-      fullName,
-      dob,
-      addressLine,
-      city,
-      pincode,
-      gstNumber: gstNumber || null, // optional
-      aadhaarNumber,
-      panNumber,
-      panimage,
-      adhaarfrant,
-      adhaarback
+    const civilWorker = new CivilWorker({
+      category: category.trim(),
+      fullName: fullName.trim(),
+      dob: new Date(dob),
+      addressLine: addressLine.trim(),
+      city: city.trim(),
+      areaPincode: areaPincode.trim(),
+      gstNumber: gstNumber?.trim(),
+      aadhaarNumber: aadhaarNumber.trim(),
+      panNumber: panNumber.trim(),
+      selfPhoto: req.files.selfPhoto[0].path.replace(/\\/g, "/"),
+      aadhaarFront : req.files.aadhaarFront[0].path.replace(/\\/g, "/"),
+      aadhaarBack : req.files.aadhaarBack[0].path.replace(/\\/g, "/"),
+      panCardImage : req.files.panCardImage[0].path.replace(/\\/g, "/"),
     });
-
-    res.status(201).json({
+    await civilWorker.save();
+    return res.status(201).json({
       success: true,
-      message: "Civil worker added successfully",
-      worker
+      data: civilWorker,
+      message: "Civil Worker registration submitted successfully",
     });
-
   } catch (error) {
-    console.error("Add Civil Worker Error:", error);
-    res.status(500).json({
+    console.error("Error creating Civil Worker:", error);
+    return res.status(500).json({
       success: false,
-      message: "Internal Server Error",
-      error: error.message
+      message: "An error occurred while processing the registration",
     });
   }
-};
+}
 
 
-// ================= GET ALL WORKERS =================
-exports.getCivilWorkers = async (_req, res) => {
+export const getCivilWorkers = async (req, res) => {
   try {
-    const workers = await CivilWorker.findAll({
-      order: [["createdAt", "DESC"]]
-    });
-
-    res.json({
+    const { cusId } = req.query;
+    const civilWorkers = await CivilWorker.find(cusId); 
+    return res.status(200).json({
       success: true,
-      count: workers.length,
-      workers
+      data: civilWorkers,
     });
-
   } catch (error) {
-    console.error("Get Civil Workers Error:", error);
-    res.status(500).json({
+    console.error("Error fetching Civil Workers:", error);
+    return res.status(500).json({
       success: false,
-      message: "Internal Server Error",
-      error: error.message
+      message: "An error occurred while fetching Civil Workers",
     });
   }
-};
+}

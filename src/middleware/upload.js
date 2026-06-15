@@ -1,35 +1,32 @@
-// upload.js
-const multer = require('multer');
-const path = require('path');
-const fs = require('fs');
+const multer = require("multer");
+const { CloudinaryStorage } = require("multer-storage-cloudinary");
+const cloudinary = require("cloudinary").v2;
 
-const baseDir = path.join(__dirname, '..');
-fs.mkdirSync(baseDir, { recursive: true });
-
-const storage = multer.diskStorage({
-  destination: (_req, _file, cb) => cb(null, baseDir),
-  filename: (_req, file, cb) => {
-    const ts = Date.now();
-    const ext = path.extname(file.originalname || '.jpg').toLowerCase();
-    cb(null, `${ts}-${Math.random().toString(36).slice(2)}${ext}`);
-  }
+cloudinary.config({
+  cloud_name: process.env.CLOUD_NAME,
+  api_key: process.env.CLOUD_API_KEY,
+  api_secret: process.env.CLOUD_API_SECRET,
 });
 
-const fileFilter = (_req, file, cb) => {
-  const ok = /image\/(jpeg|jpg|png|webp)/.test(file.mimetype);
-  cb(ok ? null : new Error('Only image files are allowed'), ok);
-};
+const storage = new CloudinaryStorage({
+  cloudinary,
+  params: {
+    folder: "construction-expert",
+    allowed_formats: ["jpg", "jpeg", "png", "webp"],
+  },
+});
 
 const upload = multer({
   storage,
-  fileFilter,
-  limits: { fileSize: 5 * 1024 * 1024 }
+  limits: { fileSize: 5 * 1024 * 1024 },
 });
 
-// Export **directly the function** instead of an object
 module.exports = upload.fields([
-  { name: 'aadhaarFront', maxCount: 1 },
-  { name: 'aadhaarBack',  maxCount: 1 },
-  { name: 'panCardImage', maxCount: 1 },
-  { name: 'selfPhoto',    maxCount: 1 }
+  { name: "aadhaarFront", maxCount: 1 },
+  { name: "aadhaarBack", maxCount: 1 },
+  { name: "panCardImage", maxCount: 1 },
+  { name: "selfPhoto", maxCount: 1 },
+  {name : "image1", maxCount: 1},
+  {name : "image2", maxCount: 1},
+  {name : "propertyImage" , maxCount: 1}
 ]);

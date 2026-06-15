@@ -1,8 +1,10 @@
 const express = require("express");
 const router = express.Router();
-const controller = require("../controllers/loan.controller");
+const { createloan , getallloanNeed } = require("../controllers/loan.controller");
+const auth = require("../middleware/auth");
 
-router.post('/', controller.addLoanWorker);
-router.get('/', controller.getLoanWorkers);
+router.post('/create', createloan);
+
+router.get('/', auth , getallloanNeed);
 
 module.exports = router;

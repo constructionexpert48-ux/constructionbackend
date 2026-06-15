@@ -16,8 +16,13 @@ const electronicsRoutes = require('./routes/electronics.routes');
 const labourRoutes = require('./routes/labour.routes');
 const loanRoutes = require('./routes/loan.routes');
 const mechanicalRoutes = require('./routes/mechanical.routes');
-const architectRoutes = require('./routes/architect.routes'); // ✅ FIX
-
+const architectRoutes = require('./routes/architect.routes');
+const twentyfour = require('./routes/TwentyFour.routes'); 
+const equipmentRRoutes = require('./routes/Equipment.routes')
+const commercialRoutes = require('./routes/commercialforrent.routes'); 
+const OthersRoutes = require('./routes/others.routes'); 
+const TenderRoutes = require('./routes/Tenderofco.routes'); 
+const AdminRoutes = require('./routes/admin.routes')
 /* ===============================
    MIDDLEWARE
 =============================== */
@@ -48,8 +53,13 @@ app.use('/electronics', electronicsRoutes);
 app.use('/labour', labourRoutes);
 app.use('/loan', loanRoutes);
 app.use('/mechanical', mechanicalRoutes);
-app.use('/architect', architectRoutes); // ✅ FIXED
-
+app.use('/architect', architectRoutes); 
+app.use('/twentyfour', twentyfour); 
+app.use('/equipment', equipmentRRoutes); 
+app.use('/commercial', commercialRoutes); 
+app.use('/others', OthersRoutes); 
+app.use('/tender', TenderRoutes);
+app.use('/admin', AdminRoutes)
 /* ===============================
    GLOBAL ERROR HANDLER
 =============================== */
