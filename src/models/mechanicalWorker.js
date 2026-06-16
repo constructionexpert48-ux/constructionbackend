@@ -79,9 +79,9 @@ const mechanicalSchema = new mongoose.Schema(
   { timestamps: true }
   );
 
-  const MechanicalWorker = mongoose.model(
-    "MechanicalWorker",
+  const mechanicalWorker = mongoose.model(
+    "mechanicalWorker",
      mechanicalSchema
   );
   
-export default MechanicalWorker;
+export default mechanicalWorker;

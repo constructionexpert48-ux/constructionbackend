@@ -1,4 +1,4 @@
-import ElectronicsWorker from "../models/ElectronicsWorker.js";
+import ElectronicsWorker from "../models/electronicsWorker.js";
 
 export const createelectronics = async (req, res) => {
   try {
