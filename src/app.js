@@ -20,7 +20,7 @@ const architectRoutes = require('./routes/architect.routes');
 const twentyfour = require('./routes/TwentyFour.routes'); 
 const equipmentRRoutes = require('./routes/Equipment.routes')
 const commercialRoutes = require('./routes/commercialforrent.routes'); 
-const OthersRoutes = require('./routes//others.routes'); 
+const OthersRoutes = require('./routes/others.routes'); 
 const TenderRoutes = require('./routes/Tenderofco.routes'); 
 const AdminRoutes = require('./routes/admin.routes')
 /* ===============================
