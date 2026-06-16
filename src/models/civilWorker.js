@@ -79,9 +79,9 @@ const civilSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-const CivilWorker = mongoose.model(
-  "CivilWorker",
+const civilWorker = mongoose.model(
+  "civilWorker",
   civilSchema
 );
 
-export default CivilWorker;
+export default civilWorker;

@@ -1,4 +1,4 @@
-import CivilWorker from "../models/CivilWorker.js";
+import CivilWorker from "../models/civilWorker.js";
 
 export const CreateCivil = async (req, res) => {
   try {
@@ -6,7 +6,7 @@ export const CreateCivil = async (req, res) => {
       category,
       fullName,
       dob,
-      addressLine,
+      addressLine, 
       city,
       areaPincode,
       gstNumber,
