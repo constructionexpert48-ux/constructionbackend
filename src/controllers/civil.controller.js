@@ -65,13 +65,20 @@ export const CreateCivil = async (req, res) => {
 export const getCivilWorkers = async (req, res) => {
   try {
     const { cusId } = req.query;
-    const civilWorkers = await CivilWorker.find({
-      _id: cusId,
-    });    return res.status(200).json({
+    
+    const civilWorkers = await CivilWorker.find({cusId});
+  
+    if(!civilWorkers){
+      return res.status(404).json({
+        success: false,
+        message: "No Civil Workers found for the given customer ID",
+      });
+    }
+    return res.status(200).json({
       success: true,
       data: civilWorkers,
     });
-  } catch (error) {
+  } catch (error) {ßßßß
     console.error("Error fetching Civil Workers:", error);
     return res.status(500).json({
       success: false,
