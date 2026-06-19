@@ -79,9 +79,9 @@ const electronicsSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-const electronicsWarker = mongoose.model(
-  "electronicsWorker",
+const ElectronicsWorker = mongoose.model(
+  "ElectronicsWorker",
    electronicsSchema
 );
 
-export default electronicsWarker;
+export default ElectronicsWorker;
