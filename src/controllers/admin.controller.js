@@ -4,7 +4,7 @@ import ElectronicsWorker from "../models/ElectronicsWorker.js";
 import Equipment from "../models/Equipment.js";
 import LabourWorker from "../models/labourWorker.js";
 import LoanWorker from "../models/loanWorker.js";
-import MechanicalWorker from "../models/MechanicalWorker.js";
+import MechanicalWorker from "../models/mechanicalWorker.js";
 import Others from "../models/Others.js";
 import Tender from "../models/Tenderofco.js";
 import TwentyFour from "../models/TwentyFour.js";
