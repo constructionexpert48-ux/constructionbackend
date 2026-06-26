@@ -37,7 +37,6 @@ export const createLabour = async (req, res) => {
       addressLine: addressLine.trim(),
       areaPincode: areaPincode.trim(),
       city: city.trim(),
-      gstNumber: gstNumber?.trim(),
       aadhaarNumber: aadhaarNumber.trim(),
       panNumber: panNumber.trim(),
       selfPhoto:  req.files.selfPhoto[0].path.replace(/\\/g, "/"), 
