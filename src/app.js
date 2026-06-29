@@ -22,7 +22,8 @@ const equipmentRRoutes = require('./routes/Equipment.routes')
 const commercialRoutes = require('./routes/commercialforrent.routes'); 
 const othersRoutes = require('./routes/Others.routes'); 
 const tenderRoutes = require('./routes/Tenderofco.routes'); 
-const adminRoutes = require('./routes/admin.routes')
+const adminRoutes = require('./routes/admin.routes');
+const materialRoutes = require('./routes/Materialsupp.routes')
 /* ===============================
    MIDDLEWARE
 =============================== */
@@ -59,7 +60,8 @@ app.use('/equipment', equipmentRRoutes);
 app.use('/commercial', commercialRoutes); 
 app.use('/others', othersRoutes); 
 app.use('/tender', tenderRoutes);
-app.use('/admin', adminRoutes)
+app.use('/admin', adminRoutes);
+app.use('/material' , materialRoutes)
 /* ===============================
    GLOBAL ERROR HANDLER
 =============================== */
