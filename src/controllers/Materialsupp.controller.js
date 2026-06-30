@@ -1,4 +1,4 @@
-import MechanicalWorker from "../models/Materialsupp.js";
+import Materialsupp from "../models/Materialsupp.js";
 
 export const createMaterialsupp = async (req, res) => {
   try {
@@ -30,7 +30,7 @@ export const createMaterialsupp = async (req, res) => {
         message: "All required fields must be filled",
       });
     }
-    const mechanicalWorker = new MechanicalWorker({
+    const mechanicalWorker = new Materialsupp({
       category: category.trim(),
       fullName: fullName.trim(),
       dob: new Date(dob),
@@ -50,7 +50,7 @@ export const createMaterialsupp = async (req, res) => {
 
     return res.status(201).json({
       success: true,
-      message: "Material Supplaer registration submitted successfully",
+      message: "Material Supplier registration submitted successfully",
       data: mechanicalWorker,
     });
   } catch (error) {
@@ -65,7 +65,7 @@ export const createMaterialsupp = async (req, res) => {
 export const getAllMaterial = async (req, res) => {
   try {
     const { cusId } = req.query;
-    const mechanical = await MechanicalWorker.findOne({ cusId });
+    const mechanical = await Materialsupp.findOne({ cusId });
     if (!mechanical) {
       return res.status(404).json({
         success: false,
